@@ -91,8 +91,8 @@ public class MainPageMobTest {
         assertEquals(Integer.parseInt(mainPage.cartItemsNum.getText()), amount - 1);
     }
 
-    @Test
-    public void checkImagesAspectRatiosForBreakPoints() {
+    @Test(description = "Compare image sizes to 2:3 aspect ratio. Check img displaying fault")
+    public void checkImagesAspectRatiosForMobileBreakPoint() {
         WebElement firstItem = mainPage.inventoryItems.get(0);
         WebElement image = firstItem.findElement(By.className("inventory_item_img"));
         int width = image.getSize().getWidth();

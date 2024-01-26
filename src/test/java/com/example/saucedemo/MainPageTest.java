@@ -1,8 +1,10 @@
 package com.example.saucedemo;
 
+import Pages.CartPage;
 import Pages.LoginPage;
 import Pages.MainPage;
 
+import Utils.Helpers;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -16,6 +18,7 @@ import org.testng.annotations.Test;
 import Utils.SauceApp;
 
 import java.time.Duration;
+import java.util.List;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -90,9 +93,32 @@ public class MainPageTest {
         mainPage.removeItemFromCart(firstItem);
         assertEquals(Integer.parseInt(mainPage.cartItemsNum.getText()), amount - 1);
     }
+    @Test(description = "Remove some items from Cart page and check, that items also removed on Inventory page")
+    public void removeItemOnCartPageAndCheckInventoryPage(){
+        Helpers helpers = new Helpers();
+        CartPage cartPage = new CartPage(driver);
+        List<WebElement> inventory = mainPage.inventoryItems;
+        List<Integer> indexesToBuy = helpers.selectRandom(inventory.size(), 2);
+        indexesToBuy.forEach(i -> mainPage.addItemToCart(mainPage.inventoryItems.get(i)));
+        String elementToRemoveId = mainPage.getItemDescId(inventory.get(indexesToBuy.get(0)));
+        mainPage.cart.click();
+        assertTrue(driver.getCurrentUrl().contains("/cart.html"));
+        List<WebElement> cartItems = cartPage.itemsInCart;
+        cartItems.forEach(item -> {
+            if(!item.findElements(By.id(elementToRemoveId)).isEmpty()) {
+                item.findElement(By.className("btn_secondary")).click();
+            }
+        });
+        cartPage.continueShoppingButton.click();
+        inventory.forEach(item -> {
+            if(!item.findElements(By.id(elementToRemoveId)).isEmpty()) {
+                assertEquals(item.findElements(By.className("btn_primary")).size(),1, "'Remove' Button should changes to Add after removing item from cart");
+            }
+        });
+    }
 
-    @Test
-    public void checkImagesAspectRatiosForBreakPoints() {
+    @Test(description = "Compare image sizes to 2:3 aspect ratio. Check img displaying fault")
+    public void checkImagesAspectRatiosForDesktopBreakpoint() {
         WebElement firstItem = mainPage.inventoryItems.get(0);
         WebElement image = firstItem.findElement(By.className("inventory_item_img"));
         int width = image.getSize().getWidth();

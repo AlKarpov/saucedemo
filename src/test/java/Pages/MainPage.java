@@ -35,14 +35,16 @@ public class MainPage {
     public void removeItemFromCart(WebElement item) {
         int currCartAmount = Integer.parseInt(cartItemsNum.getText());
         item.findElement(By.className("btn_secondary")).click();
-        assertTrue(item.findElement(By.className("btn_primary")).isDisplayed(), "Button should changes to Add after click");
+        assertEquals(item.findElements(By.className("btn_primary")).size(),1, "'Remove' Button should changes to Add after");
         int resultCartAmount = 0;
         try {
             resultCartAmount = Integer.parseInt(cartItemsNum.getText());
         } catch(Exception ignored) {}
         assertEquals(resultCartAmount,currCartAmount-1, "Expected cart items counter change");
     }
-
+    public String getItemDescId (WebElement item) {
+        return item.findElement(By.className("inventory_item_description")).findElement(By.cssSelector("a[href='#']")).getAttribute("id");
+    }
     @FindBy(id = "react-burger-menu-btn")
     public WebElement burgerButton;
 

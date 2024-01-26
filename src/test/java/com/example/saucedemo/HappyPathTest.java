@@ -51,7 +51,7 @@ public class HappyPathTest {
     public Object[][] dpMethod(){
         return new Object[][] {{"standard_user"}, {"problem_user"},{"performance_glitch_user"}};
     }
-    @Test(dataProvider = "data-provider")
+    @Test(dataProvider = "data-provider", description = "E2E test of the buying random items process")
     public void HappyPath(String val) {
         LoginPage loginPage = new LoginPage(driver);
         CartPage cartPage = new CartPage(driver);

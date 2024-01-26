@@ -10,7 +10,10 @@ import java.util.List;
 
 public class CartPage {
     @FindBy(className="cart_item")
-    private List<WebElement> itemsInCart;
+    public List<WebElement> itemsInCart;
+
+    @FindBy(id = "continue-shopping")
+    public WebElement continueShoppingButton;
 
     public List<String> getCartNames() {
         return itemsInCart.stream().map(i -> i.findElement(By.className("inventory_item_name")).getText()).toList();
