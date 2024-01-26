@@ -11,7 +11,6 @@ import java.util.List;
 import Utils.Helpers;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 
 public class MainPage {
     @FindBy(className = "inventory_item")
