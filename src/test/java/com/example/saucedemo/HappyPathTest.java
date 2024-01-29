@@ -1,9 +1,7 @@
 package com.example.saucedemo;
 
 import Pages.*;
-import Utils.SauceApp;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -18,12 +16,7 @@ import Utils.Helpers;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public class HappyPathTest {
-    private WebDriver driver;
-    private MainPage mainPage;
-    String url = SauceApp.BASE_URL;
-
-
+public class HappyPathTest extends BaseTest{
     @BeforeTest
     public void setUp() {
         ChromeOptions options = new ChromeOptions();

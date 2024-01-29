@@ -2,11 +2,9 @@ package com.example.saucedemo;
 
 import Pages.CartPage;
 import Pages.LoginPage;
-import Pages.MainPage;
 
 import Utils.Helpers;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -15,7 +13,6 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import Utils.SauceApp;
 
 import java.time.Duration;
 import java.util.List;
@@ -23,13 +20,7 @@ import java.util.List;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public class MainPageTest {
-    private WebDriver driver;
-    private MainPage mainPage;
-    String url = SauceApp.BASE_URL;
-    String defaultSortOption = SauceApp.DEFAULT_SORTING;
-    String user = "standard_user";
-
+public class MainPageTest extends BaseTest {
     @BeforeTest
     public void setUp() {
         ChromeOptions options = new ChromeOptions();
@@ -39,7 +30,7 @@ public class MainPageTest {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         driver.get(url);
-        mainPage = new MainPage(driver);
+        mainPage = new Pages.MainPage(driver);
         LoginPage loginPage = new LoginPage(driver);
         loginPage.loginUser(user);
     }
@@ -130,7 +121,7 @@ public class MainPageTest {
 
     @Test
     public void checkDefaultItemsSorting() {
-        String currOption = mainPage.sortSelect.findElement(By.className("active_option")).getText();
+        String currOption = mainPage.sortSelect.findElement(By.className("active_option")).getAttribute("textContent");
         assertEquals(defaultSortOption, currOption);
         assertEquals(mainPage.inventoryNames(),mainPage.sortedInventoryNames(), "Wrong sorting order");
     }

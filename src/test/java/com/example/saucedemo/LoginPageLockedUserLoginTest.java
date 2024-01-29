@@ -1,8 +1,6 @@
 package com.example.saucedemo;
 
 import Pages.LoginPage;
-import Utils.SauceApp;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterTest;
@@ -13,10 +11,7 @@ import java.time.Duration;
 
 import static org.testng.Assert.assertTrue;
 
-public class LoginPageLockedUserLoginTest {
-    private WebDriver driver;
-    String url = SauceApp.BASE_URL;
-    String user = "locked_out_user";
+public class LoginPageLockedUserLoginTest extends BaseTest {
 
     @BeforeTest
     public void setUp() {

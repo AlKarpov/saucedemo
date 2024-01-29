@@ -5,12 +5,8 @@ import Pages.LoginPage;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
 
-import Utils.SauceApp;
+import org.testng.annotations.*;
 
 import java.time.Duration;
 import java.util.HashMap;
@@ -19,12 +15,7 @@ import java.util.Map;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public class MainPageMobTest {
-    private WebDriver driver;
-    private MainPage mainPage;
-    String url = SauceApp.BASE_URL;
-    String defaultSortOption = SauceApp.DEFAULT_SORTING;
-    String user = "standard_user";
+public class MainPageMobTest extends BaseTest {
 
     @BeforeTest
     public void setUp() {
@@ -37,7 +28,6 @@ public class MainPageMobTest {
         driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         driver.get(url);
-        //JSONParser parser = new JSONParser();
         mainPage = new MainPage(driver);
         LoginPage loginPage = new LoginPage(driver);
         loginPage.loginUser(user);
